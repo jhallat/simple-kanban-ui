@@ -1,0 +1,21 @@
+<mat-sidenav-container class="app-sidenav-container">
+  <mat-sidenav [mode] ="isScreenSmall() ? 'over' : 'side'"
+               #sidenav
+               class="app-sidenav mat-elevation-10"
+               [opened]="!isScreenSmall()" >
+    <mat-toolbar color="primary">
+      Views
+    </mat-toolbar>
+    <mat-nav-list>
+      <mat-list-item><a matLine [routerLink]="['/kanban/backlog']">Backlog</a></mat-list-item>
+      <mat-list-item><a matline [routerLink]="['/kanban/workflow']">Workflow</a></mat-list-item>
+      <mat-list-item><a matline [routerLink]="['/kanban/settings']">Settings</a></mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="app-sidenav-content">
+      <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
+      <div class="wrapper">
+          <router-outlet></router-outlet>
+      </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
