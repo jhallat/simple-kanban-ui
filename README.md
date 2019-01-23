@@ -1,6 +1,6 @@
-## This project is currently under construction.
+### This project is currently under construction.
 
-# Simple Kanban Ui
+# Simple Kanban UI
 This project is the UI for a simple implementation of a Kanban app. I may eventually be added to a larger agile project management system.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.5.
 

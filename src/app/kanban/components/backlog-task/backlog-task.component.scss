@@ -1,0 +1,31 @@
+.backlog-task {
+  display:flex;
+  font-family: sans-serif;
+  border-style: solid;
+  border-width: 1px;
+  border-color: yellow;
+  width: 200px;
+  background: lemonchiffon;
+  box-shadow: 2px 2px 1px lightgray;
+  min-height:80px;
+  margin: 10px;
+}
+
+.backlog-content {
+  margin: 10px;
+}
+
+.backlog-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.backlog-action {
+  padding: 3px;
+  color: lightgray;
+  cursor: pointer;
+}
+
+.backlog-action:hover {
+  color: black;
+}

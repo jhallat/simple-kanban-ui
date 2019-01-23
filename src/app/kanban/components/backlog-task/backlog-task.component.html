@@ -1,0 +1,7 @@
+<div class="backlog-task">
+  <span class="backlog-content">{{ backlogTask.description }}</span>
+  <div class="backlog-actions" >
+    <mat-icon  (click)='sendToWorkflow()' class="backlog-action" matTooltip="Send to workflow">launch</mat-icon>
+    <mat-icon  (click)='delete()' matTooltip="Delete" class="backlog-action">delete</mat-icon>
+   </div>
+</div>

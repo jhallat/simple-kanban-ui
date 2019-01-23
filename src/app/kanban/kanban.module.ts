@@ -12,6 +12,9 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { KanbanAppComponent } from './kanban-app.component';
 import { WorkflowComponent } from './components/workflow/workflow.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { BacklogTaskComponent } from './components/backlog-task/backlog-task.component';
+import { NewBacklogTaskDialogComponent } from './components/new-backlog-task-dialog/new-backlog-task-dialog.component';
+import { WorkflowTaskComponent } from './components/workflow-task/workflow-task.component';
 
 const routes: Routes = [
   { path: '', component: KanbanAppComponent,
@@ -31,6 +34,9 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [KanbanAppComponent, ToolbarComponent, BacklogComponent, SidenavComponent, WorkflowComponent, SettingsComponent]
+  entryComponents: [
+    NewBacklogTaskDialogComponent
+  ],
+  declarations: [KanbanAppComponent, ToolbarComponent, BacklogComponent, SidenavComponent, WorkflowComponent, SettingsComponent, BacklogTaskComponent, NewBacklogTaskDialogComponent, WorkflowTaskComponent]
 })
 export class KanbanModule { }

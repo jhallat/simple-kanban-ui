@@ -1,8 +1,10 @@
+<div class="backlog-container">
 <mat-toolbar>
   <span>Backlog</span>
-  <button mat-button><mat-icon>add</mat-icon>Add Task</button>
-  <button mat-button><mat-icon>add</mat-icon>Add Strategy</button>
+  <span class="menu-separation"></span>
+  <button mat-button (click)="openNewBacklogTaskDialog()"><mat-icon>add</mat-icon>Add Task</button>
 </mat-toolbar>
-<div class="container">
-  
+<div class="task-container">
+  <app-backlog-task *ngFor="let backlogTask of backlogTasks | async" [backlogTask]=backlogTask></app-backlog-task>
+</div>
 </div>

@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Add New Backlog Task</h2>
+<mat-dialog-content>
+  <mat-form-field class="backlog-description">
+    <textarea matInput placeholder="Description" [(ngModel)]="backlogTask.description"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button color="primary" (click)="add()">
+      <mat-icon>save</mat-icon> Add
+    </button>
+    <button mat-button (click)="dismiss()">
+        <mat-icon>cancel</mat-icon> Cancel
+      </button>
+  </mat-dialog-actions>

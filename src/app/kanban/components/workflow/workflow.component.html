@@ -1,3 +1,60 @@
-<p>
-  workflow works!
-</p>
+<div class="workflow-container">
+  <mat-toolbar> <span>Workflow</span> </mat-toolbar>
+  <div cdkDropListGroup>
+    <div class="workflow-contents">
+      <mat-card class="workflow-lane">
+        <mat-card-title>Ready</mat-card-title>
+        <mat-card-content>
+          <div class="workflow-list"
+            id="ready"
+            cdkDropList
+            [cdkDropListData]="readyWorkflowTasks"
+            (cdkDropListDropped)="drop($event)"
+          >
+            <div cdkDrag *ngFor="let workflowTask of readyWorkflowTasks | async">
+              <app-workflow-task
+                [workflowTask]="workflowTask"
+              ></app-workflow-task>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="workflow-lane">
+        <mat-card-title>In Progress</mat-card-title>
+        <mat-card-content>
+          <div class="workflow-list"
+            id="inprogress"
+            cdkDropList
+            [cdkDropListData]="inProgressWorkflowTasks"
+            (cdkDropListDropped)="drop($event)"
+          >
+            <div cdkDrag *ngFor="let workflowTask of inProgressWorkflowTasks | async">
+              <app-workflow-task
+                [workflowTask]="workflowTask"
+              ></app-workflow-task>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="workflow-lane">
+        <mat-card-title>Done</mat-card-title>
+        <mat-card-content>
+          <div class="workflow-list"
+            id="done"
+            cdkDropList
+            [cdkDropListData]="doneWorkflowTasks"
+            (cdkDropListDropped)="drop($event)"
+          >
+            <div cdkDrag *ngFor="let workflowTask of doneWorkflowTasks | async">
+              <app-workflow-task
+                [workflowTask]="workflowTask"
+              ></app-workflow-task>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

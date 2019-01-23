@@ -1,5 +1,14 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+@import '~@angular/material/theming';
+@include mat-core();
+
+$kanban-app-primary: mat-palette($mat-teal);
+$kanban-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$kanban-app-warn:    mat-palette($mat-red);
+$kanban-app-theme: mat-light-theme($kanban-app-primary, $kanban-app-accent, $kanban-app-warn);
+@include angular-material-theme($kanban-app-theme);
+
 body {
   margin: 0px;
 }
