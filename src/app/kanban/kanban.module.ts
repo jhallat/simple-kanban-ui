@@ -15,13 +15,15 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { BacklogTaskComponent } from './components/backlog-task/backlog-task.component';
 import { NewBacklogTaskDialogComponent } from './components/new-backlog-task-dialog/new-backlog-task-dialog.component';
 import { WorkflowTaskComponent } from './components/workflow-task/workflow-task.component';
+import { GoalsComponent } from './components/goals/goals.component';
 
 const routes: Routes = [
   { path: '', component: KanbanAppComponent,
     children: [
       { path: 'backlog', component: BacklogComponent},
       { path: 'workflow', component: WorkflowComponent},
-      { path: 'settings', component: SettingsComponent}
+      { path: 'settings', component: SettingsComponent},
+      { path: 'goals', component: GoalsComponent }
     ] },
   { path: '**', redirectTo: ''}
 ];
@@ -37,6 +39,6 @@ const routes: Routes = [
   entryComponents: [
     NewBacklogTaskDialogComponent
   ],
-  declarations: [KanbanAppComponent, ToolbarComponent, BacklogComponent, SidenavComponent, WorkflowComponent, SettingsComponent, BacklogTaskComponent, NewBacklogTaskDialogComponent, WorkflowTaskComponent]
+  declarations: [KanbanAppComponent, ToolbarComponent, BacklogComponent, SidenavComponent, WorkflowComponent, SettingsComponent, BacklogTaskComponent, NewBacklogTaskDialogComponent, WorkflowTaskComponent, GoalsComponent]
 })
 export class KanbanModule { }
