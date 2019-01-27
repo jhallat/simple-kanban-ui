@@ -16,6 +16,9 @@ import { BacklogTaskComponent } from './components/backlog-task/backlog-task.com
 import { NewBacklogTaskDialogComponent } from './components/new-backlog-task-dialog/new-backlog-task-dialog.component';
 import { WorkflowTaskComponent } from './components/workflow-task/workflow-task.component';
 import { GoalsComponent } from './components/goals/goals.component';
+import { GoalDefinitionComponent } from './components/goal-definition/goal-definition.component';
+import { NewGoalDefinitionDialogComponent } from './components/new-goal-definition-dialog/new-goal-definition-dialog.component';
+import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
   { path: '', component: KanbanAppComponent,
@@ -34,11 +37,13 @@ const routes: Routes = [
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ],
   entryComponents: [
-    NewBacklogTaskDialogComponent
+    NewBacklogTaskDialogComponent,
+    NewGoalDefinitionDialogComponent
   ],
-  declarations: [KanbanAppComponent, ToolbarComponent, BacklogComponent, SidenavComponent, WorkflowComponent, SettingsComponent, BacklogTaskComponent, NewBacklogTaskDialogComponent, WorkflowTaskComponent, GoalsComponent]
+  declarations: [KanbanAppComponent, ToolbarComponent, BacklogComponent, SidenavComponent, WorkflowComponent, SettingsComponent, BacklogTaskComponent, NewBacklogTaskDialogComponent, WorkflowTaskComponent, GoalsComponent, GoalDefinitionComponent, NewGoalDefinitionDialogComponent]
 })
 export class KanbanModule { }

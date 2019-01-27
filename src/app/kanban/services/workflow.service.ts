@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { WorkflowTask } from '../models/workflow-task';
 import { WorkflowStatus } from '../models/workflow-status';
 import { HttpClient } from '@angular/common/http';
-import { WorkflowStatusService } from './workflow-status.service';
+import { StatusService } from './status.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class WorkflowService {
   };
 
   constructor(private http: HttpClient,
-              private workflowStatusService: WorkflowStatusService) {
+              private statusService: StatusService) {
     this.dataStore = { workflowTasks: [], workflowStatuses: [] };
     this._readyWorkflowTasks = new BehaviorSubject<WorkflowTask[]>([]);
     this._inProgressWorkflowTasks = new BehaviorSubject<WorkflowTask[]>([]);
@@ -44,7 +44,7 @@ export class WorkflowService {
   }
 
   loadWorkflow() {
-    this.workflowStatusService.getWorkflowStatuses().subscribe(statusData => {
+    this.statusService.getStatuses('workflow').subscribe(statusData => {
       this.dataStore.workflowStatuses = statusData;
       this._readyStatusId = this.dataStore.workflowStatuses.find((item) => item.code === 'ready').id;
       this._inProgressStatusId = this.dataStore.workflowStatuses.find((item) => item.code === 'inprogress').id;

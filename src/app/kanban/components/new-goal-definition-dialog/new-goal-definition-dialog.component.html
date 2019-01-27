@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Add New Goal</h2>
+<mat-dialog-content>
+  <div class="goal-contents">
+    <mat-form-field class="goal-input">
+      <input
+        matInput
+        placeholder="Description"
+        [(ngModel)]="goal.description"
+      />
+    </mat-form-field>
+    <mat-form-field class="goal-input">
+      <textarea
+        matInput
+        placeholder="Expectation"
+        [(ngModel)]="goal.expectation"
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field class="goal-input">
+      <textarea
+        matInput
+        placeholder="Strategy"
+        [(ngModel)]="goal.strategy"
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field class="goal-input">
+      <textarea
+        matInput
+        placeholder="Alternatives"
+        [(ngModel)]="goal.alternatives"
+      ></textarea>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="add()">
+    <mat-icon>save</mat-icon> Add
+  </button>
+  <button mat-button (click)="dismiss()">
+    <mat-icon>cancel</mat-icon> Cancel
+  </button>
+</mat-dialog-actions>

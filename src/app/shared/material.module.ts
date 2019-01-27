@@ -107,7 +107,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         MatTooltipModule,
         CdkTableModule,
         DragDropModule
-    ]
+    ],
+    declarations: []
 })
 export class MaterialModule
 {

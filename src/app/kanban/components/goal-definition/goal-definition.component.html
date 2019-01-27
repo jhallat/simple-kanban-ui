@@ -1,0 +1,19 @@
+<div class="goal-definition">
+  <mat-card>
+    <div>
+      <h3>{{ goal.description }}</h3>
+      <fieldset class="field-space">
+          <legend>Excpectation</legend>
+          <p [innerHTML]="goal.expectation | newLine"></p>
+      </fieldset>
+      <fieldset class="field-space">
+          <legend>Strategy</legend>
+          <p [innerHTML]="goal.strategy | newLine"></p>
+      </fieldset>
+      <fieldset class="field-space">
+          <legend>Alternatives</legend>
+          <p [innerHTML]="goal.alternatives | newLine"></p>
+      </fieldset>
+    </div>
+  </mat-card>
+</div>
