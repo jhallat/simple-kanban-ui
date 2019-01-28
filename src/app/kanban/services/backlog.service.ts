@@ -3,13 +3,15 @@ import { BacklogTask } from '../models/backlog-task';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BacklogStatus } from '../models/backlog-status';
-import { BacklogStatusService } from './backlog-status.service';
+import { StatusService } from './status.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BacklogService {
 
+  private API_URL;
   private _activeBacklogTasks:  BehaviorSubject<BacklogTask[]>;
 
   private dataStore: {
@@ -17,9 +19,10 @@ export class BacklogService {
     backlogStatuses: BacklogStatus[];
   };
 
-  constructor(private http: HttpClient, private backlogStatusService: BacklogStatusService) {
+  constructor(private http: HttpClient, private statusService: StatusService) {
     this.dataStore = { backlogTasks: [], backlogStatuses: [] };
     this._activeBacklogTasks = new BehaviorSubject<BacklogTask[]>([]);
+    this.API_URL = environment.api_url;
   }
 
   get activeBacklogTasks(): Observable<BacklogTask[]> {
@@ -27,9 +30,9 @@ export class BacklogService {
   }
 
   loadBacklog() {
-    this.backlogStatusService.getBacklogStatuses().subscribe(statusData => {
+    this.statusService.getStatuses('backlog').subscribe(statusData => {
       this.dataStore.backlogStatuses = statusData;
-      this.http.get<BacklogTask[]>('http://localhost:8080/api/v1/backlog-tasks').subscribe(backlogData => {
+      this.http.get<BacklogTask[]>(`${this.API_URL}/api/v1/backlog-tasks`).subscribe(backlogData => {
         this.dataStore.backlogTasks = backlogData;
         this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === 1));
       },
@@ -45,7 +48,7 @@ export class BacklogService {
       activeStatusId = 0;
     }
     backlogTask.statusId = activeStatusId;
-    this.http.post<BacklogTask>('http://localhost:8080/api/v1/backlog-tasks', backlogTask).subscribe(data => {
+    this.http.post<BacklogTask>(`${this.API_URL}/api/v1/backlog-tasks`, backlogTask).subscribe(data => {
       this.dataStore.backlogTasks.push(data);
       this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === 1));
     });
@@ -59,7 +62,7 @@ export class BacklogService {
       cancelledStatusId = 0;
     }
     backlogTask.statusId = cancelledStatusId;
-    this.http.put<BacklogTask>(`http://localhost:8080/api/v1/backlog-tasks/${backlogTask.id}`, backlogTask).subscribe(data => {
+    this.http.put<BacklogTask>(`${this.API_URL}/api/v1/backlog-tasks/${backlogTask.id}`, backlogTask).subscribe(data => {
       this.dataStore.backlogTasks.push(data);
       this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === 1));
     });
@@ -72,7 +75,7 @@ export class BacklogService {
       workflowStatusId = 0;
     }
     backlogTask.statusId = workflowStatusId;
-    this.http.put<BacklogTask>(`http://localhost:8080/api/v1/backlog-tasks/${backlogTask.id}`, backlogTask).subscribe(data => {
+    this.http.put<BacklogTask>(`${this.API_URL}/api/v1/backlog-tasks/${backlogTask.id}`, backlogTask).subscribe(data => {
       this.dataStore.backlogTasks.push(data);
       this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === 1));
     });

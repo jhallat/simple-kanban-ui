@@ -7,7 +7,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './shared/material.module';
-import { KanbanAppComponent } from './kanban/kanban-app.component';
 
 const routes: Routes = [
   { path: 'kanban', loadChildren: './kanban/kanban.module#KanbanModule'},

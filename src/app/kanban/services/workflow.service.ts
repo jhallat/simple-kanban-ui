@@ -3,12 +3,15 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { WorkflowTask } from '../models/workflow-task';
 import { WorkflowStatus } from '../models/workflow-status';
 import { HttpClient } from '@angular/common/http';
-import { WorkflowStatusService } from './workflow-status.service';
+import { StatusService } from './status.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkflowService {
+
+  private API_URL: string;
 
   private _readyWorkflowTasks: BehaviorSubject<WorkflowTask[]>;
   private _inProgressWorkflowTasks: BehaviorSubject<WorkflowTask[]>;
@@ -24,11 +27,12 @@ export class WorkflowService {
   };
 
   constructor(private http: HttpClient,
-              private workflowStatusService: WorkflowStatusService) {
+              private statusService: StatusService) {
     this.dataStore = { workflowTasks: [], workflowStatuses: [] };
     this._readyWorkflowTasks = new BehaviorSubject<WorkflowTask[]>([]);
     this._inProgressWorkflowTasks = new BehaviorSubject<WorkflowTask[]>([]);
     this._doneWorkflowTasks = new BehaviorSubject<WorkflowTask[]>([]);
+    this.API_URL = environment.api_url;
    }
 
    get readyWorkflowTasks(): Observable<WorkflowTask[]> {
@@ -44,12 +48,12 @@ export class WorkflowService {
   }
 
   loadWorkflow() {
-    this.workflowStatusService.getWorkflowStatuses().subscribe(statusData => {
+    this.statusService.getStatuses('workflow').subscribe(statusData => {
       this.dataStore.workflowStatuses = statusData;
       this._readyStatusId = this.dataStore.workflowStatuses.find((item) => item.code === 'ready').id;
       this._inProgressStatusId = this.dataStore.workflowStatuses.find((item) => item.code === 'inprogress').id;
       this._doneStatusId = this.dataStore.workflowStatuses.find((item) => item.code === 'done').id;
-      this.http.get<WorkflowTask[]>('http://localhost:8080/api/v1/workflow-tasks').subscribe(workflowData => {
+      this.http.get<WorkflowTask[]>(`${this.API_URL}/api/v1/workflow-tasks`).subscribe(workflowData => {
         this.dataStore.workflowTasks = workflowData;
         this._readyWorkflowTasks.next(Object.assign({},
           this.dataStore).workflowTasks.filter((item) => item.statusId === this._readyStatusId));
@@ -78,7 +82,7 @@ export class WorkflowService {
       }
     }
 
-    this.http.put<WorkflowTask[]>(`http://localhost:8080/api/v1/workflow-tasks/${workflowTask.id}`, workflowTask).subscribe(data => {
+    this.http.put<WorkflowTask[]>(`${this.API_URL}/api/v1/workflow-tasks/${workflowTask.id}`, workflowTask).subscribe(data => {
       this.dataStore.workflowTasks = data;
       this._readyWorkflowTasks.next(Object.assign({},
         this.dataStore).workflowTasks.filter((item) => item.statusId === this._readyStatusId));
