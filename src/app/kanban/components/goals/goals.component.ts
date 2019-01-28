@@ -29,10 +29,25 @@ export class GoalsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.goalService.addGoal(result);
         this.goals = this.goalService.activeGoals;
       }
     });
 
+  }
+
+  edit(goal: Goal) {
+    const dialogRef = this.dialog.open(NewGoalDefinitionDialogComponent, {
+      width: '600px',
+      data: goal
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.goalService.updateGoal(result);
+        this.goals = this.goalService.activeGoals;
+      }
+    });
   }
 
 }

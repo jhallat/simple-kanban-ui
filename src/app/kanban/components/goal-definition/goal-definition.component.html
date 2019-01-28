@@ -1,7 +1,12 @@
-<div class="goal-definition">
-  <mat-card>
-    <div>
-      <h3>{{ goal.description }}</h3>
+
+
+      <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            <h4>{{ goal.description }}</h4>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <button mat-button (click)="edit()"><mat-icon>create</mat-icon><span>Edit</span></button>
       <fieldset class="field-space">
           <legend>Excpectation</legend>
           <p [innerHTML]="goal.expectation | newLine"></p>
@@ -14,6 +19,6 @@
           <legend>Alternatives</legend>
           <p [innerHTML]="goal.alternatives | newLine"></p>
       </fieldset>
-    </div>
-  </mat-card>
-</div>
+    </mat-expansion-panel>
+
+

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Goal } from '../../models/goal';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { GoalService } from '../../services/goal.service';
 
 @Component({
@@ -12,14 +12,19 @@ export class NewGoalDefinitionDialogComponent implements OnInit {
 
   goal: Goal;
   constructor(private dialogRef: MatDialogRef<NewGoalDefinitionDialogComponent>,
-              private goalService: GoalService) { }
-
-  ngOnInit() {
-    this.goal = new Goal();
+              @Inject(MAT_DIALOG_DATA) private data: Goal) {
   }
 
-  add() {
-    this.goalService.addGoal(this.goal);
+  ngOnInit() {
+    if (this.data) {
+      this.goal = this.data;
+    } else {
+      this.goal = new Goal();
+    }
+  }
+
+  save() {
+    // TODO remove service from dialog
     this.dialogRef.close(this.goal);
   }
 
