@@ -5,6 +5,6 @@
       <button mat-button (click)="openNewGoalDefinitionDialog()"><mat-icon>add</mat-icon>Add Goal</button>
     </mat-toolbar>
     <div class="goal-definition-container">
-      <app-goal-definition *ngFor="let goal of goals | async" [goal]=goal (editGoal)="edit($event)"></app-goal-definition>
+      <app-goal-definition *ngFor="let goal of goals | async" [goal]=goal (editGoal)="edit($event)" [maximumPriority]="MAXIMUM_PRIORITY"></app-goal-definition>
     </div>
 </div>

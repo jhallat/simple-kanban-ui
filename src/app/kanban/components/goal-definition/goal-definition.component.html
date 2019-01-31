@@ -5,6 +5,10 @@
         <mat-panel-title>
             <h4>{{ goal.description }}</h4>
         </mat-panel-title>
+        <mat-panel-description>
+          <app-star-input [maximum]="maximumPriority" [value]="goal.priority"></app-star-input>
+          <span>{{ goal.creationDate }}</span>
+        </mat-panel-description>
       </mat-expansion-panel-header>
       <button mat-button (click)="edit()"><mat-icon>create</mat-icon><span>Edit</span></button>
       <fieldset class="field-space">

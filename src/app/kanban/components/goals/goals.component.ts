@@ -12,6 +12,7 @@ import { Goal } from '../../models/goal';
 })
 export class GoalsComponent implements OnInit {
 
+  MAXIMUM_PRIORITY = 5;
   goals: Observable<Goal[]>;
 
   constructor(private goalService: GoalService,
