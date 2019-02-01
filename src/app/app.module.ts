@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { MaterialModule } from './shared/material.module';
+import { SharedModule } from './shared/shared.module';
 
 const routes: Routes = [
   { path: 'kanban', loadChildren: './kanban/kanban.module#KanbanModule'},
@@ -21,7 +21,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
-    MaterialModule,
+    SharedModule,
     HttpClientModule
   ],
   providers: [],

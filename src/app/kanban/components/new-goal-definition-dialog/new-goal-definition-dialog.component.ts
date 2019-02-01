@@ -23,8 +23,13 @@ export class NewGoalDefinitionDialogComponent implements OnInit {
     }
   }
 
+  assignPriority(priority: number) {
+    this.goal.priority = priority;
+  }
+
   save() {
     // TODO remove service from dialog
+    console.log(this.goal);
     this.dialogRef.close(this.goal);
   }
 

@@ -10,6 +10,7 @@ import { Goal } from '../../models/goal';
 export class GoalDefinitionComponent implements OnInit {
 
   @Input() goal: Goal;
+  @Input() maximumPriority: number;
   @Output() editGoal = new EventEmitter<Goal>();
   constructor() { }
 
