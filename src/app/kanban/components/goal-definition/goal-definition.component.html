@@ -6,7 +6,7 @@
             <h4>{{ goal.description }}</h4>
         </mat-panel-title>
         <mat-panel-description>
-          <app-star-input [maximum]="maximumPriority" [value]="goal.priority"></app-star-input>
+          <app-star-input [maximum]="maximumPriority" [value]="goal.priority" [readOnly]="true"></app-star-input>
           <span>{{ goal.creationDate }}</span>
         </mat-panel-description>
       </mat-expansion-panel-header>

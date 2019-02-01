@@ -1,6 +1,6 @@
 <div class="container">
   <div *ngFor="let item of stars; let i = index">
-    <mat-icon *ngIf="stars[i]">star</mat-icon>
-    <mat-icon *ngIf="!stars[i]">star_border</mat-icon>
+    <mat-icon *ngIf="stars[i]" (click)="select(i)">star</mat-icon>
+    <mat-icon *ngIf="!stars[i]" (click) ="select(i)">star_border</mat-icon>
   </div>
 </div>

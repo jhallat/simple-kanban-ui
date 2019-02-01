@@ -3,7 +3,8 @@
   <div class="goal-contents">
     <div class="priority-container">
       <span class="mat-body">Priority</span>
-      <app-star-input [maximum]=5></app-star-input>
+      <span class="space"></span>
+      <app-star-input [maximum]=5 (valueAssigned)="assignPriority($event)"></app-star-input>
     </div>
     <mat-form-field class="goal-input">
       <input
