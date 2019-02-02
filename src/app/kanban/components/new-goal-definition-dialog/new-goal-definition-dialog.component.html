@@ -4,7 +4,7 @@
     <div class="priority-container">
       <span class="mat-body">Priority</span>
       <span class="space"></span>
-      <app-star-input [maximum]=5 (valueAssigned)="assignPriority($event)"></app-star-input>
+      <app-star-input [maximum]=5 [value]="goal.priority" (valueAssigned)="assignPriority($event)"></app-star-input>
     </div>
     <mat-form-field class="goal-input">
       <input
@@ -33,6 +33,13 @@
         placeholder="Alternatives"
         [(ngModel)]="goal.alternatives"
       ></textarea>
+    </mat-form-field>
+    <mat-form-field class="goal-input">
+      <mat-select placeholder="Status" [(ngModel)]="goal.statusId">
+        <mat-option *ngFor="let status of statuses" [value]="status.id">
+          {{status.description}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
 </mat-dialog-content>

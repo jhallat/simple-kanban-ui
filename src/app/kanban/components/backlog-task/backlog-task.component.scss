@@ -1,5 +1,6 @@
 .backlog-task {
   display:flex;
+  flex-direction: column;
   font-family: sans-serif;
   border-style: solid;
   border-width: 1px;
@@ -9,6 +10,12 @@
   box-shadow: 2px 2px 1px lightgray;
   min-height:80px;
   margin: 10px;
+}
+
+.backlog-task-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .backlog-content {
@@ -28,4 +35,11 @@
 
 .backlog-action:hover {
   color: black;
+}
+
+.backlog-date {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px;
+  color: #555555;
 }
