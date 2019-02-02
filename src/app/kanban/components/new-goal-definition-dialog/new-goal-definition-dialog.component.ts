@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Goal } from '../../models/goal';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { GoalService } from '../../services/goal.service';
+import { Status } from '../../models/status';
 
 @Component({
   selector: 'app-new-goal-definition-dialog',
@@ -11,15 +11,19 @@ import { GoalService } from '../../services/goal.service';
 export class NewGoalDefinitionDialogComponent implements OnInit {
 
   goal: Goal;
+  statuses: Status[];
   constructor(private dialogRef: MatDialogRef<NewGoalDefinitionDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private data: Goal) {
+              @Inject(MAT_DIALOG_DATA) private data: any) {
   }
 
   ngOnInit() {
+
     if (this.data) {
-      this.goal = this.data;
+      this.goal = this.data.goal ? this.data.goal : new Goal();
+      this.statuses = this.data.statuses ? this.data.statuses : [];
     } else {
       this.goal = new Goal();
+      this.statuses = [];
     }
   }
 

@@ -1,3 +1,22 @@
 .field-space {
   margin-top: 10px;
 }
+
+.description-container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.space {
+  width: 30px;
+}
+
+.status-value {
+  min-width: 60px;
+}
+
+.date-value {
+  min-width: 60px;
+}
