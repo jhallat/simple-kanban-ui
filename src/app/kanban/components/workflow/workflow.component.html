@@ -11,7 +11,7 @@
             [cdkDropListData]="readyWorkflowTasks"
             (cdkDropListDropped)="drop($event)"
           >
-            <div cdkDrag *ngFor="let workflowTask of readyWorkflowTasks | async">
+            <div class="pad-task" cdkDrag *ngFor="let workflowTask of readyWorkflowTasks | async">
               <app-workflow-task
                 [workflowTask]="workflowTask"
               ></app-workflow-task>
@@ -29,7 +29,7 @@
             [cdkDropListData]="inProgressWorkflowTasks"
             (cdkDropListDropped)="drop($event)"
           >
-            <div cdkDrag *ngFor="let workflowTask of inProgressWorkflowTasks | async">
+            <div class="pad-task" cdkDrag *ngFor="let workflowTask of inProgressWorkflowTasks | async">
               <app-workflow-task
                 [workflowTask]="workflowTask"
               ></app-workflow-task>
@@ -47,7 +47,7 @@
             [cdkDropListData]="doneWorkflowTasks"
             (cdkDropListDropped)="drop($event)"
           >
-            <div cdkDrag *ngFor="let workflowTask of doneWorkflowTasks | async">
+            <div class="pad-task" cdkDrag *ngFor="let workflowTask of doneWorkflowTasks | async">
               <app-workflow-task
                 [workflowTask]="workflowTask"
               ></app-workflow-task>

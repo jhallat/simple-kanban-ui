@@ -19,15 +19,21 @@
       <button mat-button (click)="edit()"><mat-icon>create</mat-icon><span>Edit</span></button>
       <fieldset class="field-space">
           <legend>Excpectation</legend>
-          <p [innerHTML]="goal.expectation | newLine"></p>
+          <ul class="item-list">
+            <li *ngFor="let item of goal.expectation?.split('\n')">{{ item }}</li>
+          </ul>
       </fieldset>
       <fieldset class="field-space">
           <legend>Strategy</legend>
-          <p [innerHTML]="goal.strategy | newLine"></p>
+          <ul class="item-list">
+            <li *ngFor="let item of goal.strategy?.split('\n')">{{ item }}</li>
+          </ul>
       </fieldset>
       <fieldset class="field-space">
           <legend>Alternatives</legend>
-          <p [innerHTML]="goal.alternatives | newLine"></p>
+          <ul class="item-list">
+            <li *ngFor="let item of goal.alternatives?.split('\n')">{{ item }}</li>
+          </ul>
       </fieldset>
     </mat-expansion-panel>
 
