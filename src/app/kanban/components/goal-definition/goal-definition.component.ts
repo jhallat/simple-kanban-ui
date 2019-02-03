@@ -17,7 +17,6 @@ export class GoalDefinitionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.statusById);
   }
 
   edit() {

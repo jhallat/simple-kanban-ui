@@ -12,3 +12,39 @@
   display: flex;
   flex-direction: row;
 }
+
+.goal-backlog-container {
+  width: 98%;
+  border-style: solid;
+  border-color: lightgray;
+  border-width: 1px;
+  min-height: 150px;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px lightgray;
+}
+
+.backlog-goal-heading {
+  display: flex;
+  align-items: center;
+  background: #eeeeee;
+  padding: 5px 5px 0px 5px;
+}
+
+.goal-backlog-toolbar {
+  cursor: pointer;
+  padding-right: 5px;
+}
+
+.goal-backlog-title {
+  padding: 5px 0px 0px 10px;
+  width: 100%;
+  }
+
+  .space {
+    width: 30px;
+  }
+
+  .date-value {
+    min-width: 100px;
+  }

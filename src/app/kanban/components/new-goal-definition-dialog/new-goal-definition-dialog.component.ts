@@ -32,8 +32,6 @@ export class NewGoalDefinitionDialogComponent implements OnInit {
   }
 
   save() {
-    // TODO remove service from dialog
-    console.log(this.goal);
     this.dialogRef.close(this.goal);
   }
 

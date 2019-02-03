@@ -2,9 +2,19 @@
 <mat-toolbar>
   <span>Backlog</span>
   <span class="menu-separation"></span>
-  <button mat-button (click)="openNewBacklogTaskDialog()"><mat-icon>add</mat-icon>Add Task</button>
+  <!--<button mat-button (click)="openNewBacklogTaskDialog()"><mat-icon>add</mat-icon>Add Task</button> -->
 </mat-toolbar>
-<div class="task-container">
-  <app-backlog-task *ngFor="let backlogTask of backlogTasks | async" [backlogTask]=backlogTask></app-backlog-task>
+<div class="goal-backlog-container" *ngFor="let goal of activeGoals">
+  <div class="backlog-goal-heading">
+      <div class="goal-backlog-title mat-h4">{{goal.description}}</div>
+      <app-star-input [maximum]="5" [value]="goal.priority" [readOnly]="true"></app-star-input>
+      <span class="space"></span>
+      <span class="date-value mat-body">{{ goal.creationDate }}</span>
+      <span class="space"></span>
+      <div class="goal-backlog-toolbar"><mat-icon (click)="openNewBacklogTaskDialog(goal.id)">add</mat-icon></div>
+  </div>
+  <div class="task-container">
+      <app-backlog-task *ngFor="let backlogTask of backlogTasks?.get(goal.id)" [backlogTask]=backlogTask></app-backlog-task>
+    </div>
 </div>
 </div>

@@ -1,5 +1,6 @@
 <h2 mat-dialog-title>Add New Goal</h2>
 <mat-dialog-content>
+  <form #goalForm="ngForm">
   <div class="goal-contents">
     <div class="priority-container">
       <span class="mat-body">Priority</span>
@@ -7,47 +8,57 @@
       <app-star-input [maximum]=5 [value]="goal.priority" (valueAssigned)="assignPriority($event)"></app-star-input>
     </div>
     <mat-form-field class="goal-input">
-      <input
+      <input #goalDescription="ngModel"
+        name="goalDescription"
         matInput
         placeholder="Description"
+        required
         [(ngModel)]="goal.description"
       />
+      <mat-error *ngIf="goalDescription.invalid && goalDescription.touched">
+          Description is required
+      </mat-error>
     </mat-form-field>
     <mat-form-field class="goal-input">
-      <textarea
+      <textarea #goalExpectation
+        name="goalExpectation"
         matInput
         placeholder="Expectation"
         [(ngModel)]="goal.expectation"
       ></textarea>
     </mat-form-field>
     <mat-form-field class="goal-input">
-      <textarea
+      <textarea #goalStrategy
+        name="goalStrategy"
         matInput
         placeholder="Strategy"
         [(ngModel)]="goal.strategy"
       ></textarea>
     </mat-form-field>
     <mat-form-field class="goal-input">
-      <textarea
+      <textarea #goalAlternatives
+        name="goalAlternatives"
         matInput
         placeholder="Alternatives"
         [(ngModel)]="goal.alternatives"
       ></textarea>
     </mat-form-field>
     <mat-form-field class="goal-input">
-      <mat-select placeholder="Status" [(ngModel)]="goal.statusId">
+      <mat-select #goalStatus name="goalStatus" placeholder="Status" [(ngModel)]="goal.statusId">
         <mat-option *ngFor="let status of statuses" [value]="status.id">
           {{status.description}}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button color="primary" (click)="save()">
+  <button mat-button color="primary" (click)="save()" [disabled]="goalForm.invalid">
     <mat-icon>save</mat-icon> Save
   </button>
   <button mat-button (click)="dismiss()">
     <mat-icon>cancel</mat-icon> Cancel
   </button>
 </mat-dialog-actions>
+

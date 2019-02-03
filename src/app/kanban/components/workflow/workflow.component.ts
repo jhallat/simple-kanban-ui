@@ -26,8 +26,6 @@ export class WorkflowComponent implements OnInit {
 
   drop(event: CdkDragDrop<WorkflowTask>) {
 
-    console.log(`previous ${event.previousContainer.id}`);
-    console.log(`next ${event.container.id}`);
     if (event.container.id !== event.previousContainer.id) {
         const forCompiler = <unknown>event.previousContainer.data;
         const worKflowObserver = <Observable<WorkflowTask[]>>forCompiler;
