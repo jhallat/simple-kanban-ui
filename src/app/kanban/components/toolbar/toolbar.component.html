@@ -1,8 +1,10 @@
 <mat-toolbar color="primary">
-
   <button mat-button class="sidenav-toggle" (click)="toggleSidenav.emit()">
     <mat-icon>menu</mat-icon>
   </button>
 
-  <span>Individual Kanban</span>
+  <span class="title">Individual Kanban</span>
+  <span class="space"></span>
+  <button mat-button [routerLink]="['/login']"><mat-icon>account_box</mat-icon></button>
+
 </mat-toolbar>

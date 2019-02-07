@@ -19,14 +19,15 @@ import { GoalsComponent } from './components/goals/goals.component';
 import { GoalDefinitionComponent } from './components/goal-definition/goal-definition.component';
 import { NewGoalDefinitionDialogComponent } from './components/new-goal-definition-dialog/new-goal-definition-dialog.component';
 import { SharedModule } from '../shared/shared.module';
+import { AuthorizationGuard } from '../core/authorization.guard';
 
 const routes: Routes = [
   { path: '', component: KanbanAppComponent,
     children: [
-      { path: 'backlog', component: BacklogComponent},
-      { path: 'workflow', component: WorkflowComponent},
-      { path: 'settings', component: SettingsComponent},
-      { path: 'goals', component: GoalsComponent }
+      { path: 'backlog', component: BacklogComponent, canActivate: [AuthorizationGuard]},
+      { path: 'workflow', component: WorkflowComponent, canActivate: [AuthorizationGuard]},
+      { path: 'settings', component: SettingsComponent, canActivate: [AuthorizationGuard]},
+      { path: 'goals', component: GoalsComponent, canActivate: [AuthorizationGuard] }
     ] },
   { path: '**', redirectTo: ''}
 ];
