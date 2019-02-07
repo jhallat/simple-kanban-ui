@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="login">
+    <mat-card>
+      <mat-card-title>Login</mat-card-title>
+      <mat-card-content>
+        <div class="content">
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Username"
+              [(ngModel)]="credentials.username"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              type="password"
+              placeholder="Password"
+              [(ngModel)]="credentials.password"
+            />
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions> <button mat-button (click)="login()">Login</button> </mat-card-actions>
+      <div *ngIf="userAuthorization && !userAuthorization.authenticated">
+        Invalid credentials
+      </div>
+    </mat-card>
+  </div>
+</div>

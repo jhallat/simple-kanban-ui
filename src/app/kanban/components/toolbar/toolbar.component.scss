@@ -5,6 +5,11 @@ $iconWidth: 56px;
   padding: 0;
   margin: 8px;
   min-width: $iconWidth;
+}
+
+  .space {
+    flex: 1 1 auto;
+  }
 
   @media (max-width: 720px) {
     display: flex;
@@ -19,4 +24,6 @@ $iconWidth: 56px;
     line-height: $iconWidth;
     color: white;
   }
-}
+
+
+

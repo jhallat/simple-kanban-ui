@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BacklogTask } from '../models/backlog-task';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BacklogStatus } from '../models/backlog-status';
 import { StatusService } from './status.service';
 import { environment } from '../../../environments/environment';
+import { AuthenticationService } from 'src/app/core/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class BacklogService {
     backlogStatuses: BacklogStatus[];
   };
 
-  constructor(private http: HttpClient, private statusService: StatusService) {
+  constructor(private http: HttpClient,
+              private statusService: StatusService) {
     this.dataStore = { backlogTasks: [], backlogStatuses: [] };
     this._activeBacklogTasks = new BehaviorSubject<BacklogTask[]>([]);
     this.API_URL = environment.api_url;
@@ -32,6 +34,7 @@ export class BacklogService {
   loadBacklog() {
     this.statusService.getStatuses('backlog').subscribe(statusData => {
       this.dataStore.backlogStatuses = statusData;
+
       this.http.get<BacklogTask[]>(`${this.API_URL}/api/v1/backlog-tasks`).subscribe(backlogData => {
         this.dataStore.backlogTasks = backlogData;
         this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === 1));
