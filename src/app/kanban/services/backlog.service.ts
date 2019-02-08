@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BacklogStatus } from '../models/backlog-status';
 import { StatusService } from './status.service';
 import { environment } from '../../../environments/environment';
-import { AuthenticationService } from 'src/app/core/authentication.service';
+
 
 @Injectable({
   providedIn: 'root'
