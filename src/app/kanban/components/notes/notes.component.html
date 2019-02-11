@@ -1,0 +1,13 @@
+<mat-toolbar>
+    <button mat-button (click)="openNewNoteDialog()">
+      <mat-icon>add</mat-icon>Add Note
+    </button>
+</mat-toolbar>
+<div class="note-container">
+    <div class="note-spacing" *ngFor="let note of (notes | async)">
+      <app-note
+        [note]="note"
+        (delete)="delete($event)"
+      ></app-note>
+    </div>
+  </div>

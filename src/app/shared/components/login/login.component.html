@@ -19,6 +19,7 @@
               [(ngModel)]="credentials.password"
             />
           </mat-form-field>
+          <mat-checkbox [(ngModel)]="credentials.keepLoggedIn">Remain Logged In</mat-checkbox>
         </div>
       </mat-card-content>
       <mat-card-actions> <button mat-button (click)="login()">Login</button> </mat-card-actions>

@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   userAuthorization: UserAuthorization;
   returnUrl: string;
-  credentials = {username: '', password: ''}
+  credentials = {username: '', password: '', keepLoggedIn: false};
   constructor(private authService: AuthenticationService,
               private route: ActivatedRoute,
               private router: Router) { }
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.login(this.credentials.username,
-      this.credentials.password).subscribe(
+      this.credentials.password, this.credentials.keepLoggedIn).subscribe(
         resp => {
           this.userAuthorization = resp;
           if (this.returnUrl) {

@@ -20,6 +20,10 @@ import { GoalDefinitionComponent } from './components/goal-definition/goal-defin
 import { NewGoalDefinitionDialogComponent } from './components/new-goal-definition-dialog/new-goal-definition-dialog.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthorizationGuard } from '../core/authorization.guard';
+import { NotesComponent } from './components/notes/notes.component';
+import { PlanningComponent } from './components/planning/planning.component';
+import { NoteComponent } from './components/note/note.component';
+import { NewNoteDialogComponent } from './components/new-note-dialog/new-note-dialog.component';
 
 const routes: Routes = [
   { path: '', component: KanbanAppComponent,
@@ -27,7 +31,8 @@ const routes: Routes = [
       { path: 'backlog', component: BacklogComponent, canActivate: [AuthorizationGuard]},
       { path: 'workflow', component: WorkflowComponent, canActivate: [AuthorizationGuard]},
       { path: 'settings', component: SettingsComponent, canActivate: [AuthorizationGuard]},
-      { path: 'goals', component: GoalsComponent, canActivate: [AuthorizationGuard] }
+      { path: 'goals', component: GoalsComponent, canActivate: [AuthorizationGuard] },
+      { path: 'planning', component: PlanningComponent, canActivate: [AuthorizationGuard]}
     ] },
   { path: '**', redirectTo: ''}
 ];
@@ -43,8 +48,9 @@ const routes: Routes = [
   ],
   entryComponents: [
     NewBacklogTaskDialogComponent,
-    NewGoalDefinitionDialogComponent
+    NewGoalDefinitionDialogComponent,
+    NewNoteDialogComponent
   ],
-  declarations: [KanbanAppComponent, ToolbarComponent, BacklogComponent, SidenavComponent, WorkflowComponent, SettingsComponent, BacklogTaskComponent, NewBacklogTaskDialogComponent, WorkflowTaskComponent, GoalsComponent, GoalDefinitionComponent, NewGoalDefinitionDialogComponent]
+  declarations: [KanbanAppComponent, ToolbarComponent, BacklogComponent, SidenavComponent, WorkflowComponent, SettingsComponent, BacklogTaskComponent, NewBacklogTaskDialogComponent, WorkflowTaskComponent, GoalsComponent, GoalDefinitionComponent, NewGoalDefinitionDialogComponent, NotesComponent, PlanningComponent, NoteComponent, NewNoteDialogComponent]
 })
 export class KanbanModule { }

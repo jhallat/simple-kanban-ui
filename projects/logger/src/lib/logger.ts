@@ -6,7 +6,7 @@ export class Logger {
   private _logLevel = 0;
   private _appenders: Appender[];
 
-  const(loggerName: string, logLevel: string, appenders: Appender[]) {
+  constructor(loggerName: string, logLevel: string, appenders: Appender[]) {
     this._loggerName = loggerName;
     this._appenders = appenders;
     switch (logLevel) {
@@ -33,10 +33,18 @@ export class Logger {
     }
   }
 
-  error(message: string) {
+  error(message: any) {
     if (this._logLevel > 0 && this._appenders) {
-      for (let appender of this._appenders) {
-        appender.logMessage("ERROR", message);
+      for (const appender of this._appenders) {
+        appender.logMessage('ERROR', this._loggerName, message);
+      }
+    }
+  }
+
+  debug(message: any) {
+    if (this._logLevel > 3 && this._appenders) {
+      for (const appender of this._appenders) {
+        appender.logMessage('DEBUG', this._loggerName, message);
       }
     }
   }
