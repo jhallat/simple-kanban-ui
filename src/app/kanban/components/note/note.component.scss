@@ -1,0 +1,29 @@
+.note-container {
+  min-width: 100px;
+  min-height: 50px;
+  padding: 5px;
+  margin: 5px;
+  border: solid 1px lightgray;
+  border-radius: 5px;
+  display: flex;
+}
+
+.note-contents {
+  flex: 1 1 auto;
+}
+
+.note-toolbar {
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.note-toolbar:hover {
+  opacity: 1;
+}
+
+.item-list {
+  list-style: none;
+  padding-left: 5px;
+}
