@@ -1,5 +1,9 @@
 <div class="note-container">
-  <span class="mat-body note-contents">{{ note.text }}</span>
+  <div class="mat-body note-contents">
+      <ul class="item-list">
+          <li *ngFor="let item of note.text?.split('\n')">{{ item }}</li>
+      </ul>
+  </div>
   <div class="note-toolbar">
     <mat-icon (click)='deleteNote()'>delete</mat-icon>
   </div>
