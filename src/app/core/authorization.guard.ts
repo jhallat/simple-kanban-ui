@@ -20,8 +20,8 @@ export class AuthorizationGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    this._logger.debug(this.authenticationService.userAuthorization.username);
-    if (this.authenticationService.userAuthorization.authenticated) {
+    this._logger.debug(this.authenticationService.isAuthenticated);
+    if (this.authenticationService.isAuthenticated) {
       return true;
     } else {
       this.router.navigate(['login'],
