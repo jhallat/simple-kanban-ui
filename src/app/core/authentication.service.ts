@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Logger } from 'projects/logger/src/lib/logger';
 import { LoggerFactoryService } from 'projects/logger/src/public_api';
+import { Router } from '@angular/router';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +17,19 @@ export class AuthenticationService {
   private _logger: Logger;
   private _userAuthorization;
 
-  get userAuthorization() {
-    this._logger.debug('getting authorization');
-    if (this._userAuthorization) {
-      this._logger.debug('return authorization');
-      return this._userAuthorization;
-    } else {
-      this._userAuthorization = JSON.parse(localStorage.getItem('user'));
-      return this._userAuthorization ? this._userAuthorization : new UserAuthorization();
+  get isAuthenticated(): boolean {
+    if (this._userAuthorization && this._userAuthorization.isAuthenticated) {
+      return true;
     }
+    const bearerToken = localStorage.getItem('bearerToken');
+    const keepLoggedIn = localStorage.getItem('keepLoggedIn');
+
+    return bearerToken && keepLoggedIn && keepLoggedIn === '1';
   }
 
   constructor(private http: HttpClient,
-              private loggerFactory: LoggerFactoryService) {
+              private loggerFactory: LoggerFactoryService,
+              private router: Router) {
     this._logger = this.loggerFactory.createLogger('AuthenticationService');
   }
 
@@ -50,7 +52,7 @@ export class AuthenticationService {
             this._logger.debug('bearerToken set to local storage');
             if (keepLoggedIn) {
               this._logger.debug('keep logged in');
-              localStorage.setItem('user', JSON.stringify(this._userAuthorization));
+              localStorage.setItem('keepLoggedIn', '1');
             }
           }, err => {
             this._logger.error(err);
@@ -59,7 +61,9 @@ export class AuthenticationService {
 
   logout(): void {
     localStorage.removeItem('bearerToken');
-    localStorage.removeItem('user');
+    localStorage.removeItem('keepLoggedIn');
+    this._userAuthorization = new UserAuthorization();
+    this.router.navigate(['/login']);
   }
 
   authenticate(credentials, callback) {
