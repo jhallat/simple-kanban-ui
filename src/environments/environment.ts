@@ -1,3 +1,5 @@
+import { debug } from 'util';
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
@@ -5,8 +7,15 @@
 export const environment = {
   production: false,
   api_url: 'http://localhost:8080',
-  console_logging_level: 'debug',
-  api_logging_level: 'debug'
+  logging: {
+    loggers: [
+      {logger: {
+       name: 'root',
+       level: 'DEBUG'
+      }}
+    ],
+    appenders: ['console']
+  }
 };
 
 /*

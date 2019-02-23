@@ -34,10 +34,10 @@ export class BacklogService {
   loadBacklog() {
     this.statusService.getStatuses('backlog').subscribe(statusData => {
       this.dataStore.backlogStatuses = statusData;
-
+      const activeStatusId = this.dataStore.backlogStatuses.find((item) => item.code === 'active').id;
       this.http.get<BacklogTask[]>(`${this.API_URL}/api/v1/backlog-tasks`).subscribe(backlogData => {
         this.dataStore.backlogTasks = backlogData;
-        this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === 1));
+        this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === activeStatusId));
       },
       err => console.log(err));
     },
