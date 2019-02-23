@@ -9,7 +9,9 @@ import { Appender } from './appenders/appender';
 })
 export class LoggerFactoryService {
 
-  appenders:Appender[] = [];
+  appenders: Appender[] = [];
+  loggers: Map<string, string> = new Map<string, string>();
+
   constructor() {
     if (environment.logging) {
       const logging = environment.logging;
@@ -21,9 +23,8 @@ export class LoggerFactoryService {
         }
       }
       if (logging.loggers) {
-        console.log('length ' + logging.loggers.length);
         for (let logger of logging.loggers) {
-          console.log(logger);
+          this.loggers.set(logger.logger.name, logger.logger.level);
         }
       }
     }
@@ -33,7 +34,16 @@ export class LoggerFactoryService {
 
   createLogger(loggerName: string): Logger {
     // TODO define levels externally, but use DEBUG for now
-    const level = 'DEBUG';
+    var level = 'NONE';
+    if (this.loggers.has(loggerName)) {
+      level = this.loggers.get(loggerName);
+    } else {
+      if (this.loggers.has('root')) {
+        level = this.loggers.get('root');
+      } else {
+        console.log("Warning. No root logger has been defined.");
+      }
+    }
     return new Logger(loggerName, level, this.appenders);
   }
 }
