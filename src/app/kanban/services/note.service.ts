@@ -19,7 +19,7 @@ export class NoteService {
 
   private dataStore: {
     notes: Note[];
-    statusById: Map<number, Status>;
+    statusById: Map<string, Status>;
     statuses: Status[];
   };
 
@@ -29,7 +29,7 @@ export class NoteService {
     this.dataStore = {
       notes: [],
       statuses: [],
-      statusById: new Map<number, Status>()
+      statusById: new Map<string, Status>()
     };
     this._activeNotes = new BehaviorSubject<Note[]>([]);
     this.API_URL = environment.api_url;
@@ -42,9 +42,11 @@ export class NoteService {
 
   loadNotes() {
     this.statusService.getStatuses('note').subscribe(statusData => {
+      this._logger.debug(statusData);
       this.dataStore.statuses = statusData;
-      this.dataStore.statusById = new Map<number, Status>(statusData.map(status => [status.id, status] as [number, Status]));
+      this.dataStore.statusById = new Map<string, Status>(statusData.map(status => [status.statusId, status] as [string, Status]));
       this.http.get<Note[]>(`${this.API_URL}/api/v1/notes`).subscribe(noteData => {
+        this._logger.debug(noteData);
         this.dataStore.notes = noteData;
         this._activeNotes.next(Object.assign({}, this.dataStore).notes
            .filter((item) => this.dataStore.statusById.get(item.statusId).code !== 'deleted'));
@@ -55,7 +57,7 @@ export class NoteService {
   }
 
   addNote(note: Note) {
-    const activeId = this.dataStore.statuses.find(item => item.code === 'active').id;
+    const activeId = this.dataStore.statuses.find(item => item.code === 'active').statusId;
     note.statusId = activeId;
     this.http.post<Note>(`${this.API_URL}/api/v1/notes`, note).subscribe(data => {
       this.dataStore.notes.push(data);
@@ -65,8 +67,8 @@ export class NoteService {
   }
 
   updateNote(note: Note) {
-    this.http.put<Note>(`${this.API_URL}/api/v1/notes/${note.id}`, note).subscribe(data => {
-      const index = this.dataStore.notes.findIndex((item) => item.id === note.id);
+    this.http.put<Note>(`${this.API_URL}/api/v1/notes/${note.noteId}`, note).subscribe(data => {
+      const index = this.dataStore.notes.findIndex((item) => item.noteId === note.noteId);
       if (index >= 0) {
         this.dataStore.notes[index] = data;
       }
@@ -77,10 +79,10 @@ export class NoteService {
 
   deleteNote(note: Note) {
     this._logger.debug(this.dataStore.statuses);
-    const deletedId = this.dataStore.statuses.find(item => item.code === 'deleted').id;
+    const deletedId = this.dataStore.statuses.find(item => item.code === 'deleted').statusId;
     note.statusId = deletedId;
-    this.http.put<Note>(`${this.API_URL}/api/v1/notes/${note.id}`, note).subscribe(data => {
-      const index = this.dataStore.notes.findIndex((item) => item.id === note.id);
+    this.http.put<Note>(`${this.API_URL}/api/v1/notes/${note.noteId}`, note).subscribe(data => {
+      const index = this.dataStore.notes.findIndex((item) => item.noteId === note.noteId);
       if (index >= 0) {
         this.dataStore.notes[index] = data;
       }

@@ -1,6 +1,6 @@
 export class WorkflowTask {
   id: number;
-  statusId: number;
+  statusId: string;
   description: string;
   creationDate: Date;
   statusDate: Date;

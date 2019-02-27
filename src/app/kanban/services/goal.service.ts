@@ -18,7 +18,7 @@ export class GoalService {
   private dataStore: {
     goals: Goal[];
     statuses: Status[];
-    statusById: Map<number, Status>;
+    statusById: Map<string, Status>;
   };
 
 
@@ -26,7 +26,7 @@ export class GoalService {
   constructor(private http: HttpClient, private statusService: StatusService) {
     this.dataStore = { goals: [],
                        statuses: [],
-                       statusById: new Map<number, Status>() };
+                       statusById: new Map<string, Status>() };
     this._activeGoals = new BehaviorSubject<Goal[]>([]);
     this.API_URL = environment.api_url;
   }
@@ -41,7 +41,7 @@ export class GoalService {
 
   loadGoals() {
     this.statusService.getStatuses('goal').subscribe(statusData => {
-      this.dataStore.statusById = new Map<number, Status>(statusData.map(status => [status.id, status] as [number, Status]));
+      this.dataStore.statusById = new Map<string, Status>(statusData.map(status => [status.statusId, status] as [string, Status]));
       this.dataStore.statuses = statusData;
       this.http.get<Goal[]>(`${this.API_URL}/api/v1/goals`).subscribe(goalData => {
         this.dataStore.goals = goalData;

@@ -17,7 +17,7 @@ export class GoalsComponent implements OnInit {
   goals: Observable<Goal[]>;
 
   private _statuses: Status[];
-  private _statusById: Map<number, Status>;
+  private _statusById: Map<string, Status>;
   constructor(private goalService: GoalService,
               private dialog: MatDialog) { }
 
@@ -25,7 +25,7 @@ export class GoalsComponent implements OnInit {
     return this._statuses;
   }
 
-  get statusById(): Map<number, Status> {
+  get statusById(): Map<string, Status> {
     return this._statusById;
   }
 
@@ -34,12 +34,12 @@ export class GoalsComponent implements OnInit {
     this.goals = this.goalService.activeGoals;
     this.goalService.statuses.subscribe(data => {
       this._statuses = data;
-      this._statusById = new Map<number, Status>(this._statuses.map(status => [status.id, status] as [number, Status]));
+      this._statusById = new Map<string, Status>(this._statuses.map(status => [status.statusId, status] as [string, Status]));
     });
   }
 
   openNewGoalDefinitionDialog() {
-    const initialStatusId = this._statuses.find((status) => status.initial).id;
+    const initialStatusId = this._statuses.find((status) => status.initial).statusId;
     const goal = new Goal();
     goal.statusId = initialStatusId;
     const dialogRef = this.dialog.open(NewGoalDefinitionDialogComponent, {

@@ -1,5 +1,5 @@
 export class Status {
-  id: number;
+  statusId: string;
   code: string;
   description: string;
   initial: boolean;

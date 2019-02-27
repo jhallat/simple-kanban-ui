@@ -6,12 +6,17 @@ import { debug } from 'util';
 
 export const environment = {
   production: false,
-  api_url: 'http://localhost:8080',
+  api_url: 'http://localhost:3000',
+  //api_url: 'http://localhost:8080',
   logging: {
     loggers: [
       {logger: {
        name: 'root',
        level: 'DEBUG'
+      }},
+      {logger: {
+        name: 'NoteService',
+        level: 'INFO'
       }}
     ],
     appenders: ['console']
