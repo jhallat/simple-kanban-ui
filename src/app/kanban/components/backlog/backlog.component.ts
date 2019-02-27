@@ -24,7 +24,7 @@ export class BacklogComponent implements OnInit {
   ngOnInit() {
     this.goalService.loadGoals();
     this.goalService.statuses.subscribe(statusData => {
-      const activeId = statusData.find(status => status.code === 'active').id;
+      const activeId = statusData.find(status => status.code === 'active').statusId;
       this.goalService.activeGoals.subscribe(data => {
         this.activeGoals = data.filter((goal) => goal.statusId === activeId).sort((a, b) => b.priority - a.priority);
         this.backlogService.loadBacklog();

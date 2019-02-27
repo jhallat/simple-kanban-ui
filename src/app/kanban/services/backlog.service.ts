@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BacklogTask } from '../models/backlog-task';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BacklogStatus } from '../models/backlog-status';
+import { Status } from '../models/status';
 import { StatusService } from './status.service';
 import { environment } from '../../../environments/environment';
 
@@ -17,7 +17,7 @@ export class BacklogService {
 
   private dataStore: {
     backlogTasks: BacklogTask[];
-    backlogStatuses: BacklogStatus[];
+    backlogStatuses: Status[];
   };
 
   constructor(private http: HttpClient,
@@ -34,7 +34,7 @@ export class BacklogService {
   loadBacklog() {
     this.statusService.getStatuses('backlog').subscribe(statusData => {
       this.dataStore.backlogStatuses = statusData;
-      const activeStatusId = this.dataStore.backlogStatuses.find((item) => item.code === 'active').id;
+      const activeStatusId = this.dataStore.backlogStatuses.find((item) => item.code === 'active').statusId;
       this.http.get<BacklogTask[]>(`${this.API_URL}/api/v1/backlog-tasks`).subscribe(backlogData => {
         this.dataStore.backlogTasks = backlogData;
         this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === activeStatusId));
@@ -45,42 +45,44 @@ export class BacklogService {
   }
 
   addBacklogTask(backlogTask: BacklogTask)  {
-    let activeStatusId = this.dataStore.backlogStatuses.find((item) => item.code === 'active').id;
+    let activeStatusId = this.dataStore.backlogStatuses.find((item) => item.code === 'active').statusId;
     if (!activeStatusId) {
       // TODO Should throw an error in this case
-      activeStatusId = 0;
+      activeStatusId = '';
     }
     backlogTask.statusId = activeStatusId;
     this.http.post<BacklogTask>(`${this.API_URL}/api/v1/backlog-tasks`, backlogTask).subscribe(data => {
       this.dataStore.backlogTasks.push(data);
-      this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === 1));
+      this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === activeStatusId));
     });
 
   }
 
   deleteBacklogTask(backlogTask: BacklogTask) {
-    let cancelledStatusId = this.dataStore.backlogStatuses.find((item) => item.code === 'cancelled').id;
+    let cancelledStatusId = this.dataStore.backlogStatuses.find((item) => item.code === 'cancelled').statusId;
+    let activeStatusId = this.dataStore.backlogStatuses.find((item) => item.code === 'active').statusId;
     if (!cancelledStatusId) {
       // TODO Should throw an error in this case
-      cancelledStatusId = 0;
+      cancelledStatusId = '';
     }
     backlogTask.statusId = cancelledStatusId;
     this.http.put<BacklogTask>(`${this.API_URL}/api/v1/backlog-tasks/${backlogTask.id}`, backlogTask).subscribe(data => {
       this.dataStore.backlogTasks.push(data);
-      this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === 1));
+      this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === activeStatusId));
     });
   }
 
   sendTaskToWorkflow(backlogTask: BacklogTask) {
-    let workflowStatusId = this.dataStore.backlogStatuses.find((item) => item.code === 'workflow').id;
+    let workflowStatusId = this.dataStore.backlogStatuses.find((item) => item.code === 'workflow').statusId;
+    let activeStatusId = this.dataStore.backlogStatuses.find((item) => item.code === 'active').statusId;
     if (!workflowStatusId) {
       // TODO Should throw an error in this case
-      workflowStatusId = 0;
+      workflowStatusId = '';
     }
     backlogTask.statusId = workflowStatusId;
     this.http.put<BacklogTask>(`${this.API_URL}/api/v1/backlog-tasks/${backlogTask.id}`, backlogTask).subscribe(data => {
       this.dataStore.backlogTasks.push(data);
-      this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === 1));
+      this._activeBacklogTasks.next(Object.assign({}, this.dataStore).backlogTasks.filter((item) => item.statusId === activeStatusId));
     });
   }
 

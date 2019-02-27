@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { WorkflowTask } from '../models/workflow-task';
-import { WorkflowStatus } from '../models/workflow-status';
+import { Status } from '../models/status';
 import { HttpClient } from '@angular/common/http';
 import { StatusService } from './status.service';
 import { environment } from '../../../environments/environment';
@@ -17,13 +17,13 @@ export class WorkflowService {
   private _inProgressWorkflowTasks: BehaviorSubject<WorkflowTask[]>;
   private _doneWorkflowTasks: BehaviorSubject<WorkflowTask[]>;
 
-  private _readyStatusId = 0;
-  private _inProgressStatusId = 0;
-  private _doneStatusId = 0;
+  private _readyStatusId = '';
+  private _inProgressStatusId = '';
+  private _doneStatusId = '';
 
   private dataStore: {
     workflowTasks: WorkflowTask[];
-    workflowStatuses: WorkflowStatus[];
+    workflowStatuses: Status[];
   };
 
   constructor(private http: HttpClient,
@@ -50,9 +50,9 @@ export class WorkflowService {
   loadWorkflow() {
     this.statusService.getStatuses('workflow').subscribe(statusData => {
       this.dataStore.workflowStatuses = statusData;
-      this._readyStatusId = this.dataStore.workflowStatuses.find((item) => item.code === 'ready').id;
-      this._inProgressStatusId = this.dataStore.workflowStatuses.find((item) => item.code === 'inprogress').id;
-      this._doneStatusId = this.dataStore.workflowStatuses.find((item) => item.code === 'done').id;
+      this._readyStatusId = this.dataStore.workflowStatuses.find((item) => item.code === 'ready').statusId;
+      this._inProgressStatusId = this.dataStore.workflowStatuses.find((item) => item.code === 'inprogress').statusId;
+      this._doneStatusId = this.dataStore.workflowStatuses.find((item) => item.code === 'done').statusId;
       this.http.get<WorkflowTask[]>(`${this.API_URL}/api/v1/workflow-tasks`).subscribe(workflowData => {
         this.dataStore.workflowTasks = workflowData;
         this._readyWorkflowTasks.next(Object.assign({},
